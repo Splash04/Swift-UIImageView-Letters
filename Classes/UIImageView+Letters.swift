@@ -46,13 +46,31 @@ extension UIImageView {
         }
     }
 
-    private func imageSnap(text: String?,
-                           color: UIColor,
-                           circular: Bool,
-                           textAttributes: [NSAttributedString.Key: Any]?) -> UIImage? {
+    @objc open func imageSnap(text: String?,
+                   color: UIColor,
+                   circular: Bool,
+                   textAttributes: [NSAttributedString.Key: Any]?) -> UIImage? {
+        
+        return Self.imageSnap(
+            size: bounds.size,
+            contentMode: contentMode,
+            text: text,
+            color: color,
+            circular: circular,
+            textAttributes: textAttributes
+        )
+    }
+    
+    public static func imageSnap(size: CGSize,
+                          contentMode: UIView.ContentMode,
+                          text: String?,
+                          color: UIColor,
+                          circular: Bool,
+                          textAttributes: [NSAttributedString.Key: Any]?) -> UIImage? {
         
         let scale = Float(UIScreen.main.scale)
-        var size = bounds.size
+        var size = size
+        let bounds = CGRect(origin: .zero, size: size)
         if contentMode == .scaleToFill || contentMode == .scaleAspectFill || contentMode == .scaleAspectFit || contentMode == .redraw {
             size.width = CGFloat(floorf((Float(size.width) * scale) / scale))
             size.height = CGFloat(floorf((Float(size.height) * scale) / scale))
@@ -76,7 +94,6 @@ extension UIImageView {
                                                 NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15.0)]
 
             let textSize = text.size(withAttributes: attributes)
-            let bounds = self.bounds
             let rect = CGRect(x: bounds.size.width/2 - textSize.width/2, y: bounds.size.height/2 - textSize.height/2, width: textSize.width, height: textSize.height)
 
             text.draw(in: rect, withAttributes: attributes)
