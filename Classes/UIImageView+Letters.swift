@@ -31,7 +31,7 @@ extension UIImageView {
     ///   - color: This optional paramter sets the background of the image. By default, a random color will be generated.
     ///   - circular: This boolean will determine if the image view will be clipped to a circular shape.
     ///   - textAttributes: This dictionary allows you to specify font, text color, shadow properties, etc.
-    open func setImage(string: String?,
+    @objc open func setImage(string: String?,
                        color: UIColor? = nil,
                        circular: Bool = false,
                        textAttributes: [NSAttributedString.Key: Any]? = nil) {
@@ -143,20 +143,16 @@ extension UIColor {
 // MARK: String Helper
 
 extension String {
-
     public var initials: String {
-        var finalString = String()
-        var words = components(separatedBy: .whitespacesAndNewlines)
-
-        if let firstCharacter = words.first?.first {
-            finalString.append(String(firstCharacter))
-            words.removeFirst()
-        }
-
-        if let lastCharacter = words.last?.first {
-            finalString.append(String(lastCharacter))
-        }
-
-        return finalString.uppercased()
+        trimmingCharacters(in: .whitespacesAndNewlines)
+            .components(separatedBy: CharacterSet.whitespacesAndNewlines)
+            .filter { !$0.isEmpty }
+            .reduce(into: "") {
+                if let simbol = $1.first {
+                    $0 += String(simbol)
+                }
+            }
+            .prefix(2)
+            .uppercased()
     }
 }

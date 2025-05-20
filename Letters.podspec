@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Letters'
-  s.version          = '2.1.2'
+  s.version          = '2.1.3'
   s.summary          = 'Extension of UIImageView to set an image with a given name'
 
 # This description is used to generate tags and improve search results.
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/claudot/Swift-UIImageView-Letters.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '15.0'
   s.requires_arc = true
 
   s.source_files = 'Classes/*'
